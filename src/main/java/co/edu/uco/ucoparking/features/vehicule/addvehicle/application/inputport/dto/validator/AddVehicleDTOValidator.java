@@ -2,7 +2,6 @@ package co.edu.uco.ucoparking.features.vehicule.addvehicle.application.inputport
 
 import java.util.UUID;
 
-import co.edu.uco.ucoparking.crosscutting.validation.cleaner.Cleaner;
 import co.edu.uco.ucoparking.crosscutting.validation.cleaner.string.TrimUpperCaseStringCleaner;
 import co.edu.uco.ucoparking.crosscutting.validation.rule.string.MaxLengthStringRule;
 import co.edu.uco.ucoparking.crosscutting.validation.rule.string.MinLengthStringRule;
@@ -16,39 +15,49 @@ public final class AddVehicleDTOValidator {
 
     private static final String PLATE_PATTERN = "^[A-Z]{3}-?[0-9]{3}$";
 
-    private static final Cleaner<String> PLATE_CLEANER = new TrimUpperCaseStringCleaner();
+    private static final TrimUpperCaseStringCleaner PLATE_CLEANER = new TrimUpperCaseStringCleaner();
 
-    private static final Specification<String> PLATE_SPEC = new Specification<>(
-        new NotNullStringRule(
-            "La placa del vehículo es obligatoria.",
-            "AddVehicleDTO.plate: null"),
-        new NotBlankStringRule(
-            "La placa del vehículo no puede estar vacía.",
-            "AddVehicleDTO.plate: blank"),
-        new MinLengthStringRule(6,
-            "La placa debe tener mínimo 6 caracteres.",
-            "AddVehicleDTO.plate: length < 6"),
-        new MaxLengthStringRule(7,
-            "La placa no puede superar 7 caracteres.",
-            "AddVehicleDTO.plate: length > 7"),
-        new RegexStringRule(PLATE_PATTERN,
-            "El formato de placa no es válido. Use ABC123 o ABC-123.",
-            "AddVehicleDTO.plate: does not match " + PLATE_PATTERN)
-    );
-
-    private static final Specification<UUID> VEHICLE_TYPE_SPEC = new Specification<>(
-        new NotNullUUIDRule(
-            "El tipo de vehículo es obligatorio.",
-            "AddVehicleDTO.vehicleType: null")
-    );
-
-    private static final Specification<UUID> OWNER_SPEC = new Specification<>(
-        new NotNullUUIDRule(
-            "El propietario del vehículo es obligatorio.",
-            "AddVehicleDTO.owner: null")
-    );
+    private static final Specification<String> PLATE_SPEC = buildPlateSpec();
+    private static final Specification<UUID>   VEHICLE_TYPE_SPEC = buildVehicleTypeSpec();
+    private static final Specification<UUID>   OWNER_SPEC = buildOwnerSpec();
 
     private AddVehicleDTOValidator() {
+    }
+
+    private static Specification<String> buildPlateSpec() {
+        Specification<String> spec = new Specification<String>();
+        spec.addRule(new NotNullStringRule(
+                "La placa del vehículo es obligatoria.",
+                "AddVehicleDTO.plate: null"));
+        spec.addRule(new NotBlankStringRule(
+                "La placa del vehículo no puede estar vacía.",
+                "AddVehicleDTO.plate: blank"));
+        spec.addRule(new MinLengthStringRule(6,
+                "La placa debe tener mínimo 6 caracteres.",
+                "AddVehicleDTO.plate: length < 6"));
+        spec.addRule(new MaxLengthStringRule(7,
+                "La placa no puede superar 7 caracteres.",
+                "AddVehicleDTO.plate: length > 7"));
+        spec.addRule(new RegexStringRule(PLATE_PATTERN,
+                "El formato de placa no es válido. Use ABC123 o ABC-123.",
+                "AddVehicleDTO.plate: does not match " + PLATE_PATTERN));
+        return spec;
+    }
+
+    private static Specification<UUID> buildVehicleTypeSpec() {
+        Specification<UUID> spec = new Specification<UUID>();
+        spec.addRule(new NotNullUUIDRule(
+                "El tipo de vehículo es obligatorio.",
+                "AddVehicleDTO.vehicleType: null"));
+        return spec;
+    }
+
+    private static Specification<UUID> buildOwnerSpec() {
+        Specification<UUID> spec = new Specification<UUID>();
+        spec.addRule(new NotNullUUIDRule(
+                "El propietario del vehículo es obligatorio.",
+                "AddVehicleDTO.owner: null"));
+        return spec;
     }
 
     public static String cleanAndValidatePlate(String plate) {

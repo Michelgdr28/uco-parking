@@ -6,6 +6,9 @@ public final class TrimUpperCaseStringCleaner implements Cleaner<String> {
 
     @Override
     public String clean(String value) {
-        return (value == null) ? null : value.trim().toUpperCase();
+        if (value == null) {
+            return null;
+        }
+        return value.trim().toUpperCase();
     }
 }
