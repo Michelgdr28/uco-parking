@@ -1,22 +1,22 @@
-package uco.edu.uco.ucoparking.crosscutting.validation.rule.string;
+package co.edu.uco.ucoparking.crosscutting.validation.rule.string;
 
 import co.edu.uco.ucoparking.crosscutting.validation.rule.Rule;
 
-public final class MinLengthStringRule implements Rule<String> {
+public final class MaxLengthStringRule implements Rule<String> {
 
-    private final int minLength;
+    private final int maxLength;
     private final String userMessage;
     private final String technicalMessage;
 
-    public MinLengthStringRule(int minLength, String userMessage, String technicalMessage) {
-        this.minLength = minLength;
+    public MaxLengthStringRule(int maxLength, String userMessage, String technicalMessage) {
+        this.maxLength = maxLength;
         this.userMessage = userMessage;
         this.technicalMessage = technicalMessage;
     }
 
     @Override
     public boolean isSatisfiedBy(String value) {
-        return value != null && value.length() >= minLength;
+        return value != null && value.length() <= maxLength;
     }
 
     @Override

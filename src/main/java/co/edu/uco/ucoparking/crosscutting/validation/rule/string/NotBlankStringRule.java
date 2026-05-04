@@ -1,22 +1,20 @@
-package uco.edu.uco.ucoparking.crosscutting.validation.rule.string;
+package co.edu.uco.ucoparking.crosscutting.validation.rule.string;
 
 import co.edu.uco.ucoparking.crosscutting.validation.rule.Rule;
 
-public final class MaxLengthStringRule implements Rule<String> {
+public final class NotBlankStringRule implements Rule<String> {
 
-    private final int maxLength;
     private final String userMessage;
     private final String technicalMessage;
 
-    public MaxLengthStringRule(int maxLength, String userMessage, String technicalMessage) {
-        this.maxLength = maxLength;
+    public NotBlankStringRule(String userMessage, String technicalMessage) {
         this.userMessage = userMessage;
         this.technicalMessage = technicalMessage;
     }
 
     @Override
     public boolean isSatisfiedBy(String value) {
-        return value != null && value.length() <= maxLength;
+        return value != null && !value.isBlank();
     }
 
     @Override

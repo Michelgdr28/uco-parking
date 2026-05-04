@@ -1,4 +1,4 @@
-package uco.edu.uco.ucoparking.crosscutting.validation.rule.string;
+package co.edu.uco.ucoparking.crosscutting.validation.rule.string;
 
 import co.edu.uco.ucoparking.crosscutting.validation.rule.Rule;
 
