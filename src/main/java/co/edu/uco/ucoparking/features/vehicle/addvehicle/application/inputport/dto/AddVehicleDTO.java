@@ -1,4 +1,4 @@
-package co.edu.uco.ucoparking.features.vehicule.addvehicle.application.inputport.dto;
+package co.edu.uco.ucoparking.features.vehicle.addvehicle.application.inputport.dto;
 
 import java.util.UUID;
 
@@ -13,27 +13,25 @@ public class AddVehicleDTO {
 			setPlate(plate);
 			setVehicleType(vehicleType);
 			setOwner(owner);
-		
 			
 		}
-		private String getPlate() {
+		public String getPlate() {
 			return plate;
 		}
 		private void setPlate(String plate) {
 			this.plate = plate;
 		}
-		private UUID getVehicleType() {
+		public UUID getVehicleType() {
 			return vehicleType;
 		}
 		private void setVehicleType(UUID vehicleType) {
 			this.vehicleType = vehicleType;
 		}
-		private UUID getOwner() {
+		public UUID getOwner() {
 			return owner;
 		}
 		private void setOwner(UUID owner) {
 			this.owner = owner;
-		}
-		
+		}	
 		
 	}
