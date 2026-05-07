@@ -1,6 +1,7 @@
 package co.edu.uco.ucoparking.features.vehicle.addvehicle.application.usecase.domain;
 import java.util.UUID;
 
+import co.edu.uco.ucoparking.crosscutting.validation.rule.string.MinLengthStringRule;
 import co.edu.uco.ucoparking.crosscutting.validation.rule.string.MaxLengthStringRule;
 import co.edu.uco.ucoparking.crosscutting.validation.rule.string.NotBlankStringRule;
 import co.edu.uco.ucoparking.crosscutting.validation.rule.string.NotNullStringRule;
