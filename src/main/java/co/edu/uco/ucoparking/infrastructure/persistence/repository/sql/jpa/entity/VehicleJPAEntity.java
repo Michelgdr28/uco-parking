@@ -30,6 +30,7 @@ public class VehicleJPAEntity {
 		setPlate(plate);
 		setVehicleType(vehicleType);
 		setCustomer(customer);
+
 	}
 	public UUID getId() {
 		return id;
@@ -51,5 +52,8 @@ public class VehicleJPAEntity {
 	}
 	private void setVehicleType(VehicleTypeJPAEntity vehicleType) {
 		this.vehicleType = vehicleType;
+	}
+	private void setCustomer(CustomerJPAEntity customer) {
+		this.customer = customer;
 	}
 }

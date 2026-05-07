@@ -1,102 +1,87 @@
 package co.edu.uco.ucoparking.features.vehicle.addvehicle.application.usecase.domain;
+
 import java.util.UUID;
 
-import co.edu.uco.ucoparking.crosscutting.validation.rule.string.MinLengthStringRule;
-import co.edu.uco.ucoparking.crosscutting.validation.rule.string.MaxLengthStringRule;
-import co.edu.uco.ucoparking.crosscutting.validation.rule.string.NotBlankStringRule;
-import co.edu.uco.ucoparking.crosscutting.validation.rule.string.NotNullStringRule;
-import co.edu.uco.ucoparking.crosscutting.validation.rule.string.RegexStringRule;
-import co.edu.uco.ucoparking.crosscutting.validation.rule.uuid.NotNullUUIDRule;
-import co.edu.uco.ucoparking.crosscutting.validation.specification.Specification;
+import co.edu.uco.ucoparking.crosscutting.exception.UcoParkingException;
+import co.edu.uco.ucoparking.crosscutting.helper.TextHelper;
+import co.edu.uco.ucoparking.crosscutting.helper.UUIDHelper;
 
-public class AddVehicleDomain {
+public final class AddVehicleDomain {
 
-    private static final Specification<String> PLATE_SPEC = buildPlateSpec();
-    private static final Specification<UUID> UUID_SPEC = buildUUIDSpec();
+    private static final String PLATE_PATTERN = "^[A-Z]{3}-?[0-9]{3}$";
 
-    private UUID id;
+    private UUID   id;
     private String plate;
-    private UUID vehicleType;
-    private UUID owner;
+    private UUID   vehicleType;
+    private UUID   owner;
 
     public AddVehicleDomain(String plate, UUID vehicleType, UUID owner) {
-        super(); 
-        this.id = UUID.randomUUID();
+        super();
+        generateId();
         setPlate(plate);
         setVehicleType(vehicleType);
         setOwner(owner);
     }
 
-    private static Specification<String> buildPlateSpec() {
-
-        Specification<String> spec = new Specification<>();
-
-        spec.addRule(new NotNullStringRule(
-                "La placa es obligatoria.",
-                "AddVehicleDomain.plate: null"));
-
-        spec.addRule(new NotBlankStringRule(
-                "La placa no puede estar vacía.",
-                "AddVehicleDomain.plate: blank"));
-
-        spec.addRule(new MaxLengthStringRule(7,
-                "La placa no puede superar 7 caracteres.",
-                "AddVehicleDomain.plate: length > 7"));
-        
-        spec.addRule(new MinLengthStringRule(6,
-				"La placa debe tener al menos 6 caracteres.",
-				"AddVehicleDomain.plate: length < 6"));
-
-        spec.addRule(new RegexStringRule(
-                "^[A-Z]{3}-?[0-9]{3}$",
-                "Formato de placa inválido. Use ABC123 o ABC-123.",
-                "AddVehicleDomain.plate: invalid format"));
-
-        return spec;
+    private void generateId() {
+        this.id = UUID.randomUUID();
     }
 
-    private static Specification<UUID> buildUUIDSpec() {
-
-        Specification<UUID> spec = new Specification<>();
-
-        spec.addRule(new NotNullUUIDRule(
-                "El campo UUID es obligatorio.",
-                "AddVehicleDomain: uuid is null"));
-
-        return spec;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public String getPlate() {
-        return plate;
-    }
-
-    public UUID getVehicleType() {
-        return vehicleType;
-    }
-
-    public UUID getOwner() {
-        return owner;
+    public void regenerateId() {
+        generateId();
     }
 
     private void setPlate(String plate) {
+        String cleaned = TextHelper.trimAndUpperCase(plate);
 
-        String cleanPlate = (plate == null) ? null : plate.trim().toUpperCase();
-        PLATE_SPEC.validate(cleanPlate);
-
-        this.plate = cleanPlate;
+        if (TextHelper.isNull(cleaned)) {
+            throw UcoParkingException.create(
+                "La placa es obligatoria.",
+                "AddVehicleDomain.plate: null");
+        }
+        if (TextHelper.isBlank(cleaned)) {
+            throw UcoParkingException.create(
+                "La placa no puede estar vacía.",
+                "AddVehicleDomain.plate: blank");
+        }
+        if (TextHelper.isBelowMinLength(cleaned, 6)) {
+            throw UcoParkingException.create(
+                "La placa debe tener al menos 6 caracteres.",
+                "AddVehicleDomain.plate: length < 6");
+        }
+        if (TextHelper.exceedsMaxLength(cleaned, 7)) {
+            throw UcoParkingException.create(
+                "La placa no puede superar 7 caracteres.",
+                "AddVehicleDomain.plate: length > 7");
+        }
+        if (TextHelper.doesNotMatchPattern(cleaned, PLATE_PATTERN)) {
+            throw UcoParkingException.create(
+                "Formato de placa inválido. Use ABC123 o ABC-123.",
+                "AddVehicleDomain.plate: invalid format");
+        }
+        this.plate = cleaned;
     }
 
     private void setVehicleType(UUID vehicleType) {
-        UUID_SPEC.validate(vehicleType);
+        if (UUIDHelper.isNull(vehicleType)) {
+            throw UcoParkingException.create(
+                "El tipo de vehículo es obligatorio.",
+                "AddVehicleDomain.vehicleType: null");
+        }
         this.vehicleType = vehicleType;
     }
 
     private void setOwner(UUID owner) {
-        UUID_SPEC.validate(owner);
+        if (UUIDHelper.isNull(owner)) {
+            throw UcoParkingException.create(
+                "El propietario del vehículo es obligatorio.",
+                "AddVehicleDomain.owner: null");
+        }
         this.owner = owner;
     }
+
+    public UUID getId()          { return id; }
+    public String getPlate()     { return plate; }
+    public UUID getVehicleType() { return vehicleType; }
+    public UUID getOwner()       { return owner; }
 }
