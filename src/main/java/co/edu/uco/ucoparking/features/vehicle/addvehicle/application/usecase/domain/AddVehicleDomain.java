@@ -1,4 +1,4 @@
-package co.edu.uco.ucoparking.features.vehicule.addvehicle.application.usecase.domain;
+package co.edu.uco.ucoparking.features.vehicle.addvehicle.application.usecase.domain;
 
 import java.util.UUID;
 
