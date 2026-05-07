@@ -1,4 +1,4 @@
-package co.edu.uco.ucoparking.features.vehicle.addvehicle.application.usecase.domain;
+package co.edu.uco.ucoparking.features.vehicule.addvehicle.application.usecase.domain;
 
 import java.util.UUID;
 
@@ -13,14 +13,14 @@ public final class AddVehicleDomain {
     private UUID   id;
     private String plate;
     private UUID   vehicleType;
-    private UUID   owner;
+    private UUID   customer;
 
-    public AddVehicleDomain(String plate, UUID vehicleType, UUID owner) {
+    public AddVehicleDomain(String plate, UUID vehicleType, UUID customer) {
         super();
         generateId();
         setPlate(plate);
         setVehicleType(vehicleType);
-        setOwner(owner);
+        setCustomer(customer);
     }
 
     private void generateId() {
@@ -71,17 +71,25 @@ public final class AddVehicleDomain {
         this.vehicleType = vehicleType;
     }
 
-    private void setOwner(UUID owner) {
-        if (UUIDHelper.isNull(owner)) {
+    private void setCustomer(UUID customer) {
+        if (UUIDHelper.isNull(customer)) {
             throw UcoParkingException.create(
-                "El propietario del vehículo es obligatorio.",
-                "AddVehicleDomain.owner: null");
+                "El cliente del vehículo es obligatorio.",
+                "AddVehicleDomain.customer: null");
         }
-        this.owner = owner;
+        this.customer = customer;
     }
 
-    public UUID getId()          { return id; }
-    public String getPlate()     { return plate; }
-    public UUID getVehicleType() { return vehicleType; }
-    public UUID getOwner()       { return owner; }
+    public UUID getId(){ 
+    	return id;
+    }
+    public String getPlate(){
+    	return plate; 
+    }
+    public UUID getVehicleType(){ 
+    	return vehicleType;
+    }
+    public UUID getCustomer(){
+    	return customer;
+    }
 }
