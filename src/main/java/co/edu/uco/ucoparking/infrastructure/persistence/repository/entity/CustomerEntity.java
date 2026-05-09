@@ -5,6 +5,7 @@ import java.util.UUID;
 public class CustomerEntity {
 	private UUID id;
 	private OrganizationEntity organization;
+	private VehicleTypeEntity vehicleType;
 	private IdTypeEntity idType;
 	private String idNumber;
 	private String name;
@@ -12,11 +13,12 @@ public class CustomerEntity {
 	private String email;
 	private String phoneNumber;
 	
-	public CustomerEntity(UUID id, OrganizationEntity organization, IdTypeEntity idType, String idNumber, String name,
+	public CustomerEntity(UUID id, OrganizationEntity organization, VehicleTypeEntity vehicleType ,IdTypeEntity idType, String idNumber, String name,
 			String lastName, String email, String phoneNumber) {
 		super();
 		this.id = id;
 		this.organization = organization;
+		this.vehicleType = vehicleType;
 		this.idType = idType;
 		this.idNumber = idNumber;
 		this.name = name;
@@ -31,6 +33,9 @@ public class CustomerEntity {
 
 	public OrganizationEntity getOrganization() {
 		return organization;
+	}
+	public VehicleTypeEntity getVehicleType() {
+		return vehicleType;
 	}
 
 	public IdTypeEntity getIdType() {
@@ -63,6 +68,9 @@ public class CustomerEntity {
 
 	private void setOrganization(OrganizationEntity organization) {
 		this.organization = organization;
+	}
+	private void setVehicleType(VehicleTypeEntity vehicleType) {
+		this.vehicleType = vehicleType;
 	}
 
 	private void setIdType(IdTypeEntity idType) {

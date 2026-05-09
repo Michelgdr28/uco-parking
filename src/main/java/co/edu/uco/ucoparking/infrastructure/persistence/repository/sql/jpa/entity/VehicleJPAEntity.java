@@ -5,6 +5,8 @@ import java.util.UUID;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,10 +20,12 @@ public class VehicleJPAEntity {
 	@Column(name = "plate")
 	private String plate;
 	
-	@Column(name = "vehicle_type_id")
+	@ManyToOne                              
+    @JoinColumn(name = "vehicle_type_id")   
 	private VehicleTypeJPAEntity vehicleType;
 	
-	@Column(name = "customer_id")
+	@ManyToOne                              
+    @JoinColumn(name = "customer_id")  
 	private CustomerJPAEntity customer;
 	
 	public VehicleJPAEntity(UUID id, String plate, VehicleTypeJPAEntity vehicleType, CustomerJPAEntity customer) {

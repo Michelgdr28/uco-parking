@@ -14,7 +14,8 @@ public final class VehicleAlreadyExistsException extends RuntimeException {
     public static VehicleAlreadyExistsException create(String plate) {
         return new VehicleAlreadyExistsException(
             "Ya existe un vehículo registrado con la placa " + plate + ".",
-            "AddVehicle: vehicle already exists with plate=" + plate);
+            "AddVehicle: vehicle already exists with plate=" + plate
+        );
     }
 
     public String getUserMessage() {

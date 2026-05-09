@@ -42,7 +42,21 @@ public class CustomerJPAEntity {
 	private String email;
 	
 	@Column(name = "telefono")
-	public String  phoneNumber;
+	private String  phoneNumber;
+    
+	public CustomerJPAEntity(UUID id, OrganizationJPAEntity organization, IdTypeJPAEntity idType,
+			VehicleTypeJPAEntity vehicleType,String idNumber, String name, String lastName, String email, String phoneNumber) {
+        super();
+        setId(id);
+        setOrganization(organization);
+        setIdType(idType);
+        setVehicleType(vehicleType);
+        setIdNumber(idNumber);
+        setName(name);
+        setLastName(lastName);
+        setEmail(email);
+        setPhoneNumber(phoneNumber);
+    }
 
 	public UUID getId() {
 		return id;

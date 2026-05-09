@@ -1,6 +1,7 @@
-package co.edu.uco.ucoparking.features.vehicle.addvehicle.application.inputport.dto;
+package co.edu.uco.ucoparking.features.vehicle.addvehicle.application.inputport.mapper;
 
 import co.edu.uco.ucoparking.crosscutting.exception.UcoParkingException;
+import co.edu.uco.ucoparking.features.vehicle.addvehicle.application.inputport.dto.AddVehicleDTO;
 import co.edu.uco.ucoparking.features.vehicle.addvehicle.application.usecase.domain.AddVehicleDomain;
 
 public final class AddVehicleDTOMapper {

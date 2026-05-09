@@ -16,7 +16,8 @@ public final class VehicleTypeAlreadyAssignedException extends RuntimeException 
     public static VehicleTypeAlreadyAssignedException create(UUID owner, UUID vehicleType) {
         return new VehicleTypeAlreadyAssignedException(
             "El propietario ya tiene registrado un vehículo de ese tipo.",
-            "AddVehicle: owner=" + owner + " already has vehicleType=" + vehicleType);
+            "AddVehicle: owner=" + owner + " already has vehicleType=" + vehicleType
+        );
     }
 
     public String getUserMessage() {

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import co.edu.uco.ucoparking.infrastructure.persistence.repository.CustomerRepository;
+import co.edu.uco.ucoparking.infrastructure.persistence.repository.adapter.sql.jpa.mapper.CustomerEntityMapper;
 import co.edu.uco.ucoparking.infrastructure.persistence.repository.entity.CustomerEntity;
 import co.edu.uco.ucoparking.infrastructure.persistence.repository.sql.jpa.CustomerJPARepository;
 import co.edu.uco.ucoparking.infrastructure.persistence.repository.sql.jpa.entity.CustomerJPAEntity;
@@ -17,8 +18,7 @@ public class CustomerJPARepositoryAdapter implements CustomerRepository{
 	}
 	@Override
 	public void create(CustomerEntity entity) {
-		//CustomerEntity -> CutomerJPAEntity(mapper)
-		CustomerJPAEntity jpaEntity = null;
+		CustomerJPAEntity jpaEntity = CustomerEntityMapper.toJPA(entity);
 		repository.save(jpaEntity);
 	}
 	@Override
@@ -29,21 +29,25 @@ public class CustomerJPARepositoryAdapter implements CustomerRepository{
 	@Override
 	public void delete(UUID id) {
 		// TODO Auto-generated method stub
-		
 	}
-	@Override
-	public List<CustomerEntity> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		@Override
+	    public List<CustomerEntity> findAll() {
+	        return repository.findAll()
+	            .stream()
+	            .map(CustomerEntityMapper::toEntity)
+	            .toList();
+	    }
+
+	    @Override
+	    public List<CustomerEntity> findByfilter(CustomerEntity filter) {
+	        // TODO
+	        return List.of();
+	    }
+
+	    @Override
+	    public CustomerEntity findById(UUID id) {
+	        return repository.findById(id)
+	            .map(CustomerEntityMapper::toEntity)
+	            .orElse(null);
+	    }
 	}
-	@Override
-	public List<CustomerEntity> findByfilter(CustomerEntity filter) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public CustomerEntity findById(UUID id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-}
