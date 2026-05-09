@@ -1,4 +1,4 @@
-package co.edu.uco.ucoparking.crosscutting.exception;
+package co.edu.uco.ucoparking.features.vehicle.addvehicle.application.usecase.rules;
 
 import java.util.UUID;
 
