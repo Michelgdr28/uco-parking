@@ -2,6 +2,8 @@ package co.edu.uco.ucoparking.infrastructure.persistence.repository.entity;
 
 import java.util.UUID;
 
+import co.edu.uco.ucoparking.crosscutting.helper.TextHelper;
+
 public class CustomerEntity {
 	private UUID id;
 	private OrganizationEntity organization;
@@ -62,40 +64,32 @@ public class CustomerEntity {
 		return phoneNumber;
 	}
 
-	private void setId(UUID id) {
+	private void setId(UUID id) { 
 		this.id = id;
-	}
+		}
+    private void setOrganization(OrganizationEntity organization) { 
+    	this.organization = organization;
+    	}
+    private void setVehicleType(VehicleTypeEntity vehicleType) {
+    	this.vehicleType = vehicleType;
+    	}
+    private void setIdType(IdTypeEntity idType) { 
+    	this.idType = idType; 
+    	}
 
-	private void setOrganization(OrganizationEntity organization) {
-		this.organization = organization;
-	}
-	private void setVehicleType(VehicleTypeEntity vehicleType) {
-		this.vehicleType = vehicleType;
-	}
-
-	private void setIdType(IdTypeEntity idType) {
-		this.idType = idType;
-	}
-
-	private void setIdNumber(String idNumber) {
-		this.idNumber = idNumber;
-	}
-
-	private void setName(String name) {
-		this.name = name;
-	}
-
-	private void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	private void setEmail(String email) {
-		this.email = email;
-	}
-
-	private void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-	
+    private void setIdNumber(String idNumber) {
+        this.idNumber = TextHelper.clean(idNumber);         
+    }
+    private void setName(String name) {
+        this.name = TextHelper.clean(name);                 
+    }
+    private void setLastName(String lastName) {
+        this.lastName = TextHelper.clean(lastName);         
+    }
+    private void setEmail(String email) {
+        this.email = TextHelper.cleanAndLowerCase(email);   
+    }
+    private void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = TextHelper.clean(phoneNumber);   
+    }
 }
-

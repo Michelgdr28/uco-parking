@@ -18,6 +18,10 @@ public class OrganizationJPAEntity {
 	@Column(name = "name")
 	private String name;
 	
+	protected OrganizationJPAEntity() {
+		
+	}
+	
 	public OrganizationJPAEntity(UUID id, String name) {
 		super();
 		setId(id);

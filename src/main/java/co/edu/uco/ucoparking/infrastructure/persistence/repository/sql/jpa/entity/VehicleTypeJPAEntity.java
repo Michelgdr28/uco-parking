@@ -18,6 +18,10 @@ public class VehicleTypeJPAEntity {
 	@Column(name = "name")
 	private String name;
 	
+	protected VehicleTypeJPAEntity() {
+		
+	}
+	
 	public VehicleTypeJPAEntity (UUID id, String name) {
 		super();
 		setId (id);

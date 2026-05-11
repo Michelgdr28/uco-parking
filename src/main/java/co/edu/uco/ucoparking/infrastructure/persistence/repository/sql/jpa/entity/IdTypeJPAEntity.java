@@ -19,6 +19,10 @@ public class IdTypeJPAEntity {
 	@Column(name = "nombre")
 	private String name;
 	
+	protected IdTypeJPAEntity() {
+		
+	}
+	
 	public IdTypeJPAEntity(UUID id, String name) {
 		super();
 		setId(id);

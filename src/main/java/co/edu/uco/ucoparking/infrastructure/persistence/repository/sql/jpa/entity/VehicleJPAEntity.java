@@ -28,6 +28,10 @@ public class VehicleJPAEntity {
     @JoinColumn(name = "customer_id")  
 	private CustomerJPAEntity customer;
 	
+	protected VehicleJPAEntity() {
+		
+	}
+	
 	public VehicleJPAEntity(UUID id, String plate, VehicleTypeJPAEntity vehicleType, CustomerJPAEntity customer) {
 		super();
 		setId(id);

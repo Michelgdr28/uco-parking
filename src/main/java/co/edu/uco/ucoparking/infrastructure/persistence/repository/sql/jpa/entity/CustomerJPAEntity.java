@@ -43,6 +43,10 @@ public class CustomerJPAEntity {
 	
 	@Column(name = "telefono")
 	private String  phoneNumber;
+	
+	protected CustomerJPAEntity() {
+		
+	}
     
 	public CustomerJPAEntity(UUID id, OrganizationJPAEntity organization, IdTypeJPAEntity idType,
 			VehicleTypeJPAEntity vehicleType,String idNumber, String name, String lastName, String email, String phoneNumber) {

@@ -32,7 +32,7 @@ public final class AddVehicleDomain {
     }
 
     private void setPlate(String plate) {
-        String cleaned = TextHelper.trimAndUpperCase(plate);
+        String cleaned = TextHelper.cleanAndUpperCase(plate);
 
         if (TextHelper.isNull(cleaned)) {
             throw UcoParkingException.create(

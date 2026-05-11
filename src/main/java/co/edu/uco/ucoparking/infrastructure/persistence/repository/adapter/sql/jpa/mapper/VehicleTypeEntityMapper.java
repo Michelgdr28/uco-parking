@@ -1,10 +1,14 @@
 package co.edu.uco.ucoparking.infrastructure.persistence.repository.adapter.sql.jpa.mapper;
 
+import org.modelmapper.ModelMapper;
+
 import co.edu.uco.ucoparking.crosscutting.exception.UcoParkingException;
 import co.edu.uco.ucoparking.infrastructure.persistence.repository.entity.VehicleTypeEntity;
 import co.edu.uco.ucoparking.infrastructure.persistence.repository.sql.jpa.entity.VehicleTypeJPAEntity;
 
 public final class VehicleTypeEntityMapper {
+
+    private static final ModelMapper mapper = new ModelMapper();
 
     private VehicleTypeEntityMapper() {
     }
@@ -16,10 +20,7 @@ public final class VehicleTypeEntityMapper {
                 "VehicleTypeEntityMapper.toJPA: entity is null"
             );
         }
-        return new VehicleTypeJPAEntity(
-            entity.getId(),
-            entity.getName()
-        );
+        return mapper.map(entity, VehicleTypeJPAEntity.class);
     }
 
     public static VehicleTypeEntity toEntity(VehicleTypeJPAEntity jpaEntity) {
@@ -29,9 +30,6 @@ public final class VehicleTypeEntityMapper {
                 "VehicleTypeEntityMapper.toEntity: jpaEntity is null"
             );
         }
-        return new VehicleTypeEntity(
-            jpaEntity.getId(),
-            jpaEntity.getName()
-        );
+        return mapper.map(jpaEntity, VehicleTypeEntity.class);
     }
 }
