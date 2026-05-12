@@ -2,6 +2,9 @@ package co.edu.uco.ucoparking.features.vehicletype.getvehicletype.application.in
 
 import java.util.UUID;
 
+import co.edu.uco.ucoparking.crosscutting.helper.TextHelper;
+import co.edu.uco.ucoparking.crosscutting.helper.UUIDHelper;
+
 public final class GetVehicleTypeDTO {
 
     private UUID id;
@@ -9,14 +12,22 @@ public final class GetVehicleTypeDTO {
 
     public GetVehicleTypeDTO(UUID id, String name) {
         super();
-        this.id = id;
-        this.name = name;
+        setId(id);
+        setName(name);
     }
 
     public UUID getId() { 
     	return id;
     	}
     public String getName() { 
-    	return name; 
+    	return name;
     	}
+
+    private void setId(UUID id) {
+        this.id = UUIDHelper.clean(id);
+    }
+
+    private void setName(String name) {
+        this.name = TextHelper.clean(name);
+    }
 }
