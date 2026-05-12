@@ -18,15 +18,15 @@ public class CustomerEntity {
 	public CustomerEntity(UUID id, OrganizationEntity organization, VehicleTypeEntity vehicleType ,IdTypeEntity idType, String idNumber, String name,
 			String lastName, String email, String phoneNumber) {
 		super();
-		this.id = id;
-		this.organization = organization;
-		this.vehicleType = vehicleType;
-		this.idType = idType;
-		this.idNumber = idNumber;
-		this.name = name;
-		this.lastName = lastName;
-		this.email = email;
-		this.phoneNumber = phoneNumber;
+		setId(id);
+		setOrganization(organization);
+		setVehicleType(vehicleType);
+		setIdType(idType);
+		setIdNumber(idNumber);
+		setName (name);
+		setLastName(lastName);
+		setEmail(email);
+		setPhoneNumber(phoneNumber);
 	}
 
 	public UUID getId() {
