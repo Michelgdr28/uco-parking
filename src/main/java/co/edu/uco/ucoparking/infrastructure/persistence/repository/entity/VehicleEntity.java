@@ -6,7 +6,7 @@ import co.edu.uco.ucoparking.crosscutting.helper.TextHelper;
 
 public class VehicleEntity {
 	private UUID id;
-	private String Plate;
+	private String plate;
 	private VehicleTypeEntity vehicleType;
 	private CustomerEntity owner;
 
@@ -21,7 +21,7 @@ public class VehicleEntity {
 		return id;
 	}
 	public String getPlate() {
-		return Plate;
+		return plate;
 	}
 	public VehicleTypeEntity getVehicleType() {
 		return vehicleType;
@@ -33,7 +33,7 @@ public class VehicleEntity {
 		this.id = id;
 	}
 	private void setPlate(String plate) {
-		this.Plate = TextHelper.cleanAndUpperCase(plate);
+		this.plate = TextHelper.cleanAndUpperCase(plate);
 	}
 	private void setVehicleType(VehicleTypeEntity vehicleType) {
 		this.vehicleType = vehicleType;

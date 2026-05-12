@@ -33,7 +33,7 @@ public class CustomerJPAEntity {
 	private String idNumber;
 	
 	@Column(name = "first_name")
-	private String Name;
+	private String name;
 	
 	@Column(name = "last_name")
 	private String lastName;
@@ -42,7 +42,11 @@ public class CustomerJPAEntity {
 	private String email;
 	
 	@Column(name = "telefono")
-	public String  phoneNumber;
+	private String  phoneNumber;
+	
+	protected CustomerJPAEntity() {
+		
+	}
 	
 	public CustomerJPAEntity(UUID id, OrganizationJPAEntity organization, IdTypeJPAEntity idType,
 			VehicleTypeJPAEntity vehicleType,String idNumber, String name, String lastName, String email, String phoneNumber) {
@@ -79,7 +83,7 @@ public class CustomerJPAEntity {
 	}
 
 	public String getName() {
-		return Name;
+		return name;
 	}
 
 	public String getLastName() {
@@ -115,7 +119,7 @@ public class CustomerJPAEntity {
 	}
 
 	private void setName(String name) {
-		Name = name;
+		name = name;
 	}
 
 	private void setLastName(String lastName) {
