@@ -3,6 +3,7 @@ package co.edu.uco.ucoparking.infrastructure.persistence.repository.adapter.sql.
 import org.modelmapper.ModelMapper;
 
 import co.edu.uco.ucoparking.crosscutting.exception.UcoParkingException;
+import co.edu.uco.ucoparking.crosscutting.helper.ObjectHelper;
 import co.edu.uco.ucoparking.infrastructure.persistence.repository.entity.CustomerEntity;
 import co.edu.uco.ucoparking.infrastructure.persistence.repository.sql.jpa.entity.CustomerJPAEntity;
 
@@ -14,7 +15,7 @@ public final class CustomerEntityMapper {
     }
 
     public static CustomerJPAEntity toJPA(CustomerEntity entity) {
-        if (entity == null) {
+        if (ObjectHelper.isNull(entity)) {
             throw UcoParkingException.create(
                 "No se pueden procesar los datos del cliente.",
                 "CustomerEntityMapper.toJPA: entity is null"
@@ -24,7 +25,7 @@ public final class CustomerEntityMapper {
     }
 
     public static CustomerEntity toEntity(CustomerJPAEntity jpaEntity) {
-        if (jpaEntity == null) {
+        if (ObjectHelper.isNull(jpaEntity)) {
             throw UcoParkingException.create(
                 "No se pueden procesar los datos del cliente.",
                 "CustomerEntityMapper.toEntity: jpaEntity is null"

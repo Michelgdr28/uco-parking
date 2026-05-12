@@ -32,32 +32,31 @@ public final class AddVehicleDomain {
     }
 
     private void setPlate(String plate) {
-        String cleaned = TextHelper.cleanAndUpperCase(plate);
+        String cleaned = TextHelper.cleanAndUpperCase(plate); 
 
-        if (TextHelper.isNull(cleaned)) {
-            throw UcoParkingException.create(
-                "La placa es obligatoria.",
-                "AddVehicleDomain.plate: null");
-        }
         if (TextHelper.isBlank(cleaned)) {
             throw UcoParkingException.create(
-                "La placa no puede estar vacía.",
-                "AddVehicleDomain.plate: blank");
+                "La placa es obligatoria.",
+                "AddVehicleDomain.plate: blank or null"
+            );
         }
         if (TextHelper.isBelowMinLength(cleaned, 6)) {
             throw UcoParkingException.create(
                 "La placa debe tener al menos 6 caracteres.",
-                "AddVehicleDomain.plate: length < 6");
+                "AddVehicleDomain.plate: length < 6"
+            );
         }
         if (TextHelper.exceedsMaxLength(cleaned, 7)) {
             throw UcoParkingException.create(
                 "La placa no puede superar 7 caracteres.",
-                "AddVehicleDomain.plate: length > 7");
+                "AddVehicleDomain.plate: length > 7"
+            );
         }
         if (TextHelper.doesNotMatchPattern(cleaned, PLATE_PATTERN)) {
             throw UcoParkingException.create(
                 "Formato de placa inválido. Use ABC123 o ABC-123.",
-                "AddVehicleDomain.plate: invalid format");
+                "AddVehicleDomain.plate: invalid format"
+            );
         }
         this.plate = cleaned;
     }
@@ -66,7 +65,8 @@ public final class AddVehicleDomain {
         if (UUIDHelper.isNull(vehicleType)) {
             throw UcoParkingException.create(
                 "El tipo de vehículo es obligatorio.",
-                "AddVehicleDomain.vehicleType: null");
+                "AddVehicleDomain.vehicleType: null"
+            );
         }
         this.vehicleType = vehicleType;
     }
@@ -75,21 +75,22 @@ public final class AddVehicleDomain {
         if (UUIDHelper.isNull(customer)) {
             throw UcoParkingException.create(
                 "El cliente del vehículo es obligatorio.",
-                "AddVehicleDomain.customer: null");
+                "AddVehicleDomain.customer: null"
+            );
         }
         this.customer = customer;
     }
 
-    public UUID getId(){ 
+    public UUID getId() { 
     	return id;
-    }
-    public String getPlate(){
+    	}
+    public String getPlate() { 
     	return plate; 
-    }
-    public UUID getVehicleType(){ 
-    	return vehicleType;
-    }
-    public UUID getCustomer(){
+    	}
+    public UUID getVehicleType() { 
+    	return vehicleType; 
+    	}
+    public UUID getCustomer() { 
     	return customer;
-    }
+    	}
 }

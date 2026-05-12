@@ -2,6 +2,8 @@ package co.edu.uco.ucoparking.infrastructure.persistence.repository.entity;
 
 import java.util.UUID;
 
+import co.edu.uco.ucoparking.crosscutting.helper.TextHelper;
+
 public class IdTypeEntity {
 	private UUID id;
 	private String name;
@@ -21,6 +23,6 @@ public class IdTypeEntity {
 		this.id = id;
 	}
 	private void setName(String name) {
-		this.name = name;
+		this.name = TextHelper.clean(name);
 	}
 }

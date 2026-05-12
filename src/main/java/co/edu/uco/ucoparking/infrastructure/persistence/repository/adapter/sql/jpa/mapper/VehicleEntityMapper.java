@@ -3,6 +3,7 @@ package co.edu.uco.ucoparking.infrastructure.persistence.repository.adapter.sql.
 import org.modelmapper.ModelMapper;
 
 import co.edu.uco.ucoparking.crosscutting.exception.UcoParkingException;
+import co.edu.uco.ucoparking.crosscutting.helper.ObjectHelper;
 import co.edu.uco.ucoparking.infrastructure.persistence.repository.entity.VehicleEntity;
 import co.edu.uco.ucoparking.infrastructure.persistence.repository.sql.jpa.entity.VehicleJPAEntity;
 
@@ -14,7 +15,7 @@ public final class VehicleEntityMapper {
     }
 
     public static VehicleJPAEntity toJPA(VehicleEntity entity) {
-        if (entity == null) {
+        if (ObjectHelper.isNull(entity)) {
             throw UcoParkingException.create(
                 "No se pueden procesar los datos del vehículo.",
                 "VehicleEntityMapper.toJPA: entity is null"
@@ -24,7 +25,7 @@ public final class VehicleEntityMapper {
     }
 
     public static VehicleEntity toEntity(VehicleJPAEntity jpaEntity) {
-        if (jpaEntity == null) {
+        if (ObjectHelper.isNull(jpaEntity)) {
             throw UcoParkingException.create(
                 "No se pueden procesar los datos del vehículo.",
                 "VehicleEntityMapper.toEntity: jpaEntity is null"
