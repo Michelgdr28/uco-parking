@@ -5,9 +5,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import co.edu.uco.ucoparking.features.vehicle.addvehicle.application.inputport.AddVehicleInputPort;
 import co.edu.uco.ucoparking.features.vehicle.addvehicle.application.inputport.dto.AddVehicleDTO;
-import co.edu.uco.ucoparking.features.vehicle.addvehicle.application.inputport.mapper.AddVehicleDTOMapper; 
+import co.edu.uco.ucoparking.features.vehicle.addvehicle.application.inputport.mapper.AddVehicleDTOMapper;
+import co.edu.uco.ucoparking.features.vehicle.addvehicle.application.usecase.AddVehicleUseCase;
 import co.edu.uco.ucoparking.features.vehicle.addvehicle.application.usecase.domain.AddVehicleDomain;
-import co.edu.uco.ucoparking.features.vehicule.addvehicle.application.usecase.AddVehicleUseCase;
 
 @Service
 @Transactional(rollbackFor = Exception.class)

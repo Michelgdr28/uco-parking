@@ -3,11 +3,11 @@ package co.edu.uco.ucoparking.features.vehicle.addvehicle.application.usecase.im
 import org.springframework.stereotype.Service;
 
 import co.edu.uco.ucoparking.crosscutting.exception.UcoParkingException;
+import co.edu.uco.ucoparking.features.vehicle.addvehicle.application.usecase.AddVehicleUseCase;
 import co.edu.uco.ucoparking.features.vehicle.addvehicle.application.usecase.domain.AddVehicleDomain;
 import co.edu.uco.ucoparking.features.vehicle.addvehicle.application.usecase.rules.CustomerNotFoundException;
 import co.edu.uco.ucoparking.features.vehicle.addvehicle.application.usecase.rules.VehicleAlreadyExistsException;
 import co.edu.uco.ucoparking.features.vehicle.addvehicle.application.usecase.rules.VehicleTypeAlreadyAssignedException;
-import co.edu.uco.ucoparking.features.vehicule.addvehicle.application.usecase.AddVehicleUseCase;
 import co.edu.uco.ucoparking.infrastructure.persistence.repository.CustomerRepository;
 import co.edu.uco.ucoparking.infrastructure.persistence.repository.VehicleRepository;
 import co.edu.uco.ucoparking.infrastructure.persistence.repository.VehicleTypeRepository;
