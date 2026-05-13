@@ -5,7 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import co.edu.uco.ucoparking.features.vehicle.addvehicle.application.inputport.AddVehicleInputPort;
 import co.edu.uco.ucoparking.features.vehicle.addvehicle.application.inputport.dto.AddVehicleDTO;
-import co.edu.uco.ucoparking.features.vehicle.addvehicle.application.inputport.mapper.AddVehicleDTOMapper;
+import co.edu.uco.ucoparking.features.vehicle.addvehicle.application.inputport.dto.validator.AddVehicleDTOValidator;
 import co.edu.uco.ucoparking.features.vehicle.addvehicle.application.usecase.AddVehicleUseCase;
 import co.edu.uco.ucoparking.features.vehicle.addvehicle.application.usecase.domain.AddVehicleDomain;
 
@@ -13,7 +13,7 @@ import co.edu.uco.ucoparking.features.vehicle.addvehicle.application.usecase.dom
 @Transactional(rollbackFor = Exception.class)
 public class AddVehicleInteractor implements AddVehicleInputPort {
 
-    private AddVehicleUseCase useCase;
+    private final AddVehicleUseCase useCase;
 
     public AddVehicleInteractor(AddVehicleUseCase useCase) {
         this.useCase = useCase;
@@ -21,7 +21,9 @@ public class AddVehicleInteractor implements AddVehicleInputPort {
 
     @Override
     public Void execute(AddVehicleDTO data) {
-        AddVehicleDomain domain = AddVehicleDTOMapper.toDomain(data);
-        return useCase.execute(domain);
+        String cleanedPlate = AddVehicleDTOValidator.cleanAndValidatePlate(data.getPlate());
+        AddVehicleDTOValidator.validateVehicleType(data.getVehicleType());
+        AddVehicleDTOValidator.validateOwner(data.getOwner());
+        return useCase.execute(new AddVehicleDomain(cleanedPlate, data.getVehicleType(), data.getOwner()));
     }
 }

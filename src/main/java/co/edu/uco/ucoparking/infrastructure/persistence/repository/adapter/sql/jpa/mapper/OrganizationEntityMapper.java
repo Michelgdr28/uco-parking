@@ -1,36 +1,15 @@
 package co.edu.uco.ucoparking.infrastructure.persistence.repository.adapter.sql.jpa.mapper;
 
-import org.modelmapper.ModelMapper;
+import org.mapstruct.Mapper;
 
-import co.edu.uco.ucoparking.crosscutting.exception.UcoParkingException;
-import co.edu.uco.ucoparking.crosscutting.helper.ObjectHelper;
 import co.edu.uco.ucoparking.infrastructure.persistence.repository.entity.OrganizationEntity;
 import co.edu.uco.ucoparking.infrastructure.persistence.repository.sql.jpa.entity.OrganizationJPAEntity;
 
-public final class OrganizationEntityMapper {
-
-    private static final ModelMapper mapper = new ModelMapper();
-
-    private OrganizationEntityMapper() {
-    }
-
-    public static OrganizationJPAEntity toJPA(OrganizationEntity entity) {
-        if (ObjectHelper.isNull(entity)) {
-            throw UcoParkingException.create(
-                "No se pueden procesar los datos de la organización.",
-                "OrganizationEntityMapper.toJPA: entity is null"
-            );
-        }
-        return mapper.map(entity, OrganizationJPAEntity.class);
-    }
-
-    public static OrganizationEntity toEntity(OrganizationJPAEntity jpaEntity) {
-        if (ObjectHelper.isNull(jpaEntity)) {
-            throw UcoParkingException.create(
-                "No se pueden procesar los datos de la organización.",
-                "OrganizationEntityMapper.toEntity: jpaEntity is null"
-            );
-        }
-        return mapper.map(jpaEntity, OrganizationEntity.class);
-    }
+@Mapper(componentModel = "spring")
+public interface OrganizationEntityMapper {
+	
+    OrganizationJPAEntity toJPA(OrganizationEntity entity);
+    
+    OrganizationEntity toEntity(OrganizationJPAEntity jpaEntity);
+    
 }

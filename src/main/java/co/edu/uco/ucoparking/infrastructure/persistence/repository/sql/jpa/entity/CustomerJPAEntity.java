@@ -119,7 +119,7 @@ public class CustomerJPAEntity {
 	}
 
 	private void setName(String name) {
-		name = name;
+		this.name = name;
 	}
 
 	private void setLastName(String lastName) {
