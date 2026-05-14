@@ -7,46 +7,40 @@ public final class AddVehicleDomain {
     private UUID   id;
     private String plate;
     private UUID   vehicleType;
-    private UUID   customer;
+    private UUID   owner;
 
-    public AddVehicleDomain(String plate, UUID vehicleType, UUID customer) {
-        super();
+    public AddVehicleDomain(String plate, UUID vehicleType, UUID owner) {
         regenerateId();
         setPlate(plate);
         setVehicleType(vehicleType);
-        setCustomer(customer);
+        setOwner(owner);
     }
 
-    public void regenerateId() {
-        generateId();
-    }
+    public void regenerateId() { generateId(); }
 
     private void generateId() {
-        this.id = UUID.randomUUID();
-    }
-
-    private void setPlate(String plate) {
-        this.plate = plate;
-    }
-
+    	this.id = UUID.randomUUID();
+    	}
+    private void setPlate(String plate) { 
+    	this.plate = plate; 
+    	}
     private void setVehicleType(UUID vehicleType) {
-        this.vehicleType = vehicleType;
-    }
+    	this.vehicleType = vehicleType; 
+    	}
+    private void setOwner(UUID owner) {
+    	this.owner = owner; 
+    	}
 
-    private void setCustomer(UUID customer) {
-        this.customer = customer;
-    }
-
-    public UUID getId() { 
+    public UUID getId() {
     	return id;
     	}
-    public String getPlate() { 
-    	return plate;
+    public String getPlate() {
+    	return plate; 
     	}
-    public UUID getVehicleType() { 
+    public UUID getVehicleType() {
     	return vehicleType;
     	}
-    public UUID getCustomer() { 
-    	return customer; 
+    public UUID getOwner() {
+    	return owner; 
     	}
 }

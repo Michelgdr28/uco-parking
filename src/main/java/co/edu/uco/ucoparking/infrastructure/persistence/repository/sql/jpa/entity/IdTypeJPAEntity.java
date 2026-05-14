@@ -16,7 +16,7 @@ public class IdTypeJPAEntity {
 	@Column(name = "id")
 	private UUID id;
 	
-	@Column(name = "nombre")
+	@Column(name = "name")
 	private String name;
 	
 	protected IdTypeJPAEntity() {

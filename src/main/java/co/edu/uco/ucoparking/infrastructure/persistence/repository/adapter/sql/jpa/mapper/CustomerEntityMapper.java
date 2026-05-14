@@ -8,7 +8,6 @@ import co.edu.uco.ucoparking.infrastructure.persistence.repository.sql.jpa.entit
 @Mapper(componentModel = "spring", uses = {
     OrganizationEntityMapper.class,
     IdTypeEntityMapper.class,
-    VehicleTypeEntityMapper.class
     }
 )
 

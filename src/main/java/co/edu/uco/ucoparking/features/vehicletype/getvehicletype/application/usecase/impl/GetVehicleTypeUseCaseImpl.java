@@ -6,30 +6,26 @@ import org.springframework.stereotype.Service;
 
 import co.edu.uco.ucoparking.features.vehicletype.getvehicletype.application.usecase.GetVehicleTypeUseCase;
 import co.edu.uco.ucoparking.features.vehicletype.getvehicletype.application.usecase.domain.GetVehicleTypeDomain;
+import co.edu.uco.ucoparking.features.vehicletype.getvehicletype.application.usecase.mapper.GetVehicleTypeDomainMapper;
 import co.edu.uco.ucoparking.infrastructure.persistence.repository.VehicleTypeRepository;
-import co.edu.uco.ucoparking.infrastructure.persistence.repository.entity.VehicleTypeEntity;
 
 @Service
 public class GetVehicleTypeUseCaseImpl implements GetVehicleTypeUseCase {
 
     private final VehicleTypeRepository vehicleTypeRepository;
+    private final GetVehicleTypeDomainMapper mapper;
 
-    public GetVehicleTypeUseCaseImpl(VehicleTypeRepository vehicleTypeRepository) {
+    public GetVehicleTypeUseCaseImpl(VehicleTypeRepository vehicleTypeRepository,
+                                     GetVehicleTypeDomainMapper mapper) {
         this.vehicleTypeRepository = vehicleTypeRepository;
+        this.mapper = mapper;
     }
 
     @Override
     public List<GetVehicleTypeDomain> execute(Void data) {
         return vehicleTypeRepository.findAll()
             .stream()
-            .map(this::toDomain)
+            .map(mapper::toDomain)
             .toList();
-    }
-
-    private GetVehicleTypeDomain toDomain(VehicleTypeEntity entity) {
-        return new GetVehicleTypeDomain(
-            entity.getId(),
-            entity.getName()
-        );
     }
 }

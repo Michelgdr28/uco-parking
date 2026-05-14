@@ -2,15 +2,14 @@ package co.edu.uco.ucoparking.features.vehicle.addvehicle.application.usecase.im
 
 import org.springframework.stereotype.Service;
 
-import co.edu.uco.ucoparking.crosscutting.exception.UcoParkingException;
+import co.edu.uco.ucoparking.features.customer.getcustomerbyid.application.usecase.GetCustomerByIdUseCase;
 import co.edu.uco.ucoparking.features.vehicle.addvehicle.application.usecase.AddVehicleUseCase;
 import co.edu.uco.ucoparking.features.vehicle.addvehicle.application.usecase.domain.AddVehicleDomain;
-import co.edu.uco.ucoparking.features.vehicle.addvehicle.application.usecase.rules.CustomerNotFoundException;
+import co.edu.uco.ucoparking.features.vehicle.addvehicle.application.usecase.mapper.AddVehicleDomainMapper;
 import co.edu.uco.ucoparking.features.vehicle.addvehicle.application.usecase.rules.VehicleAlreadyExistsException;
 import co.edu.uco.ucoparking.features.vehicle.addvehicle.application.usecase.rules.VehicleTypeAlreadyAssignedException;
-import co.edu.uco.ucoparking.infrastructure.persistence.repository.CustomerRepository;
+import co.edu.uco.ucoparking.features.vehicletype.getvehicletypebyid.application.usecase.GetVehicleTypeByIdUseCase;
 import co.edu.uco.ucoparking.infrastructure.persistence.repository.VehicleRepository;
-import co.edu.uco.ucoparking.infrastructure.persistence.repository.VehicleTypeRepository;
 import co.edu.uco.ucoparking.infrastructure.persistence.repository.entity.CustomerEntity;
 import co.edu.uco.ucoparking.infrastructure.persistence.repository.entity.VehicleEntity;
 import co.edu.uco.ucoparking.infrastructure.persistence.repository.entity.VehicleTypeEntity;
@@ -18,54 +17,37 @@ import co.edu.uco.ucoparking.infrastructure.persistence.repository.entity.Vehicl
 @Service
 public class AddVehicleUseCaseImpl implements AddVehicleUseCase {
 
-    private final CustomerRepository customerRepository;
-    private final VehicleRepository vehicleRepository;
-    private final VehicleTypeRepository vehicleTypeRepository;
+    private final GetCustomerByIdUseCase    getCustomerByIdUseCase;
+    private final GetVehicleTypeByIdUseCase getVehicleTypeByIdUseCase;
+    private final VehicleRepository         vehicleRepository;
+    private final AddVehicleDomainMapper    mapper;
 
-    public AddVehicleUseCaseImpl(CustomerRepository customerRepository,VehicleRepository vehicleRepository,VehicleTypeRepository vehicleTypeRepository) {
-        this.customerRepository = customerRepository;
-        this.vehicleRepository = vehicleRepository;
-        this.vehicleTypeRepository = vehicleTypeRepository;
+    public AddVehicleUseCaseImpl(GetCustomerByIdUseCase getCustomerByIdUseCase,
+                                 GetVehicleTypeByIdUseCase getVehicleTypeByIdUseCase,
+                                 VehicleRepository vehicleRepository,
+                                 AddVehicleDomainMapper mapper) {
+        this.getCustomerByIdUseCase    = getCustomerByIdUseCase;
+        this.getVehicleTypeByIdUseCase = getVehicleTypeByIdUseCase;
+        this.vehicleRepository         = vehicleRepository;
+        this.mapper                    = mapper;
     }
 
     @Override
     public Void execute(AddVehicleDomain data) {
+        CustomerEntity    owner       = getCustomerByIdUseCase.execute(data.getOwner());
+        VehicleTypeEntity vehicleType = getVehicleTypeByIdUseCase.execute(data.getVehicleType());
 
- 
-        CustomerEntity customer = customerRepository.findById(data.getCustomer());
-        if (customer == null) {
-            throw CustomerNotFoundException.create(data.getCustomer());
-        }
-
-        VehicleTypeEntity vehicleType = vehicleTypeRepository.findById(data.getVehicleType());
-        if (vehicleType == null) {
-            throw UcoParkingException.create(
-                "El tipo de vehículo seleccionado no existe.",
-                "AddVehicleUseCase: vehicleType not found with id=" + data.getVehicleType()
-            );
-        }
-
- 
-        VehicleEntity filterByPlate = new VehicleEntity(null, data.getPlate(), null, null);
-        boolean plateExists = !vehicleRepository.findByFilter(filterByPlate).isEmpty();
-        if (plateExists) {
+        VehicleEntity plateFilter = new VehicleEntity(null, data.getPlate(), null, null);
+        if (!vehicleRepository.findByFilter(plateFilter).isEmpty()) {
             throw VehicleAlreadyExistsException.create(data.getPlate());
         }
 
-        VehicleEntity filterByCustomerAndType = new VehicleEntity(null, null, vehicleType, customer);
-        boolean typeAlreadyAssigned = !vehicleRepository.findByFilter(filterByCustomerAndType).isEmpty();
-        if (typeAlreadyAssigned) {
-            throw VehicleTypeAlreadyAssignedException.create(data.getCustomer(), data.getVehicleType());
+        VehicleEntity ownerTypeFilter = new VehicleEntity(null, null, vehicleType, owner);
+        if (!vehicleRepository.findByFilter(ownerTypeFilter).isEmpty()) {
+            throw VehicleTypeAlreadyAssignedException.create(data.getOwner(), data.getVehicleType());
         }
 
-      
-        VehicleEntity vehicle = new VehicleEntity(
-            data.getId(),
-            data.getPlate(),
-            vehicleType,
-            customer
-        );
-        vehicleRepository.create(vehicle);
+        vehicleRepository.create(mapper.toEntity(data, vehicleType, owner));
 
         return null;
     }
