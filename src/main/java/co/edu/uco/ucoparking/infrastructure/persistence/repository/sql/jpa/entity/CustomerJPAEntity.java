@@ -38,12 +38,12 @@ public class CustomerJPAEntity {
     private String email;
 
     @Column(name = "phone")
-    private String phoneNumber;
+    private Long phoneNumber;
 
     protected CustomerJPAEntity() {}
 
     public CustomerJPAEntity(UUID id, OrganizationJPAEntity organization, IdTypeJPAEntity idType,
-            String idNumber, String name, String lastName, String email, String phoneNumber) {
+            String idNumber, String name, String lastName, String email, Long phoneNumber) {
         super();
         setId(id);
         setOrganization(organization);
@@ -76,7 +76,7 @@ public class CustomerJPAEntity {
     public String getEmail() {
     	return email; 
     	}
-    public String getPhoneNumber() {
+    public Long getPhoneNumber() {
     	return phoneNumber; 
     	}
 
@@ -101,7 +101,7 @@ public class CustomerJPAEntity {
     private void setEmail(String email) { 
     	this.email = email;
     	}
-    private void setPhoneNumber(String phoneNumber) { 
+    private void setPhoneNumber(Long phoneNumber) { 
     	this.phoneNumber = phoneNumber; 
     	}
 }

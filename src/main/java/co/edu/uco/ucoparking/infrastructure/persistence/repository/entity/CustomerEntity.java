@@ -13,12 +13,12 @@ public class CustomerEntity {
     private String name;
     private String lastName;
     private String email;
-    private String phoneNumber;
+    private Long phoneNumber;
 
     protected CustomerEntity() {}
 
     public CustomerEntity(UUID id, OrganizationEntity organization, IdTypeEntity idType,
-            String idNumber, String name, String lastName, String email, String phoneNumber) {
+            String idNumber, String name, String lastName, String email, Long phoneNumber) {
         super();
         setId(id);
         setOrganization(organization);
@@ -51,7 +51,7 @@ public class CustomerEntity {
     public String getEmail() {
     	return email;
     	}
-    public String getPhoneNumber() { 
+    public Long getPhoneNumber() { 
     	return phoneNumber;
     	}
 
@@ -76,7 +76,7 @@ public class CustomerEntity {
     private void setEmail(String email) {
     	this.email = TextHelper.cleanAndLowerCase(email);
     	}
-    private void setPhoneNumber(String phoneNumber) {
-    	this.phoneNumber = TextHelper.clean(phoneNumber); 
-    	}
+    private void setPhoneNumber(Long phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 }

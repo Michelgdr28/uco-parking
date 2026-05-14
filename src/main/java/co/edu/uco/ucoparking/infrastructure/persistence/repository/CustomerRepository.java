@@ -6,11 +6,16 @@ import java.util.UUID;
 import co.edu.uco.ucoparking.infrastructure.persistence.repository.entity.CustomerEntity;
 
 public interface CustomerRepository {
-	void create(CustomerEntity entity);
-	void update(UUID id, CustomerEntity entity);
-	void delete(UUID id);
-	List<CustomerEntity> findAll();
-	List<CustomerEntity> findByfilter(CustomerEntity filter);
-	CustomerEntity findById(UUID id);
-
+	
+    void create(CustomerEntity entity);
+    
+    void update(UUID id, CustomerEntity entity);
+    
+    void delete(UUID id);
+    
+    List<CustomerEntity> findAll();
+    
+    List<CustomerEntity> findByFilter(CustomerEntity filter);  
+    
+    CustomerEntity findById(UUID id);
 }
