@@ -18,31 +18,28 @@ public class CustomerJPAEntity {
 	private UUID id;
 	
 	@ManyToOne
-	@JoinColumn(name = "organization")
+	@JoinColumn(name = "organization_id") 
 	private OrganizationJPAEntity organization;
-	
+
 	@ManyToOne
-	@JoinColumn(name = "id_type")
+	@JoinColumn(name = "id_type_id")       
 	private IdTypeJPAEntity idType;
-	
-	@ManyToOne
-	@JoinColumn(name = "vehicle_type")
-	private VehicleTypeJPAEntity vehicleType;
-	
+
+
 	@Column(name = "document_number")
 	private String idNumber;
-	
+
 	@Column(name = "first_name")
 	private String name;
-	
+
 	@Column(name = "last_name")
 	private String lastName;
-	
-	@Column(name = "correo")
+
+	@Column(name = "email")              
 	private String email;
-	
-	@Column(name = "telefono")
-	private String  phoneNumber;
+
+	@Column(name = "phone")               
+	private String phoneNumber;
 	
 	protected CustomerJPAEntity() {
 		
@@ -54,7 +51,6 @@ public class CustomerJPAEntity {
         setId(id);
         setOrganization(organization);
         setIdType(idType);
-        setVehicleType(vehicleType);
         setIdNumber(idNumber);
         setName(name);
         setLastName(lastName);
@@ -74,9 +70,6 @@ public class CustomerJPAEntity {
 		return idType;
 	}
 
-	public VehicleTypeJPAEntity getVehicleType() {
-		return vehicleType;
-	}
 
 	public String getIdNumber() {
 		return idNumber;
@@ -110,9 +103,6 @@ public class CustomerJPAEntity {
 		this.idType = idType;
 	}
 
-	private void setVehicleType(VehicleTypeJPAEntity vehicleType) {
-		this.vehicleType = vehicleType;
-	}
 
 	private void setIdNumber(String idNumber) {
 		this.idNumber = idNumber;

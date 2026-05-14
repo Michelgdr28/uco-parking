@@ -29,6 +29,7 @@ public class CustomerEntity {
 		setPhoneNumber(phoneNumber);
 	}
 
+
 	public UUID getId() {
 		return id;
 	}

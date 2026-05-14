@@ -81,6 +81,7 @@ public class VehicleJPARepositoryAdapter implements VehicleRepository {
             return findAll();
         }
         Specification<VehicleJPAEntity> spec = (root, query, cb) -> cb.conjunction();
+      
 
         if (!TextHelper.isBlank(filter.getPlate())) {
             spec = spec.and((root, query, cb) ->
