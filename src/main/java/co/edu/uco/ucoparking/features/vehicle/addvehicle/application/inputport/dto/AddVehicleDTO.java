@@ -31,7 +31,7 @@ public class AddVehicleDTO {
     	return owner;
     	}
 
-    private void setPlate(String plate) { 
+    public void setPlate(String plate) { 
     	this.plate = plate; 
     	}
     private void setVehicleType(UUID vehicleType) {

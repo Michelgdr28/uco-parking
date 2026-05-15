@@ -7,23 +7,22 @@ import co.edu.uco.ucoparking.features.vehicle.addvehicle.application.inputport.A
 import co.edu.uco.ucoparking.features.vehicle.addvehicle.application.inputport.dto.AddVehicleDTO;
 import co.edu.uco.ucoparking.features.vehicle.addvehicle.application.inputport.dto.validator.AddVehicleDTOValidator;
 import co.edu.uco.ucoparking.features.vehicle.addvehicle.application.usecase.AddVehicleUseCase;
-import co.edu.uco.ucoparking.features.vehicle.addvehicle.application.usecase.domain.AddVehicleDomain;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class AddVehicleInteractor implements AddVehicleInputPort {
 
     private final AddVehicleUseCase useCase;
+    private final AddVehicleDTOMapper mapper;
 
-    public AddVehicleInteractor(AddVehicleUseCase useCase) {
+    public AddVehicleInteractor(AddVehicleUseCase useCase, AddVehicleDTOMapper mapper) {
         this.useCase = useCase;
+        this.mapper = mapper;
     }
 
     @Override
     public Void execute(AddVehicleDTO data) {
-        String cleanedPlate = AddVehicleDTOValidator.cleanAndValidatePlate(data.getPlate());
-        AddVehicleDTOValidator.validateVehicleType(data.getVehicleType());
-        AddVehicleDTOValidator.validateOwner(data.getOwner());
-        return useCase.execute(new AddVehicleDomain(cleanedPlate, data.getVehicleType(), data.getOwner()));
+        AddVehicleDTOValidator.cleanAndValidate(data);
+        return useCase.execute(mapper.toDomain(data));
     }
 }

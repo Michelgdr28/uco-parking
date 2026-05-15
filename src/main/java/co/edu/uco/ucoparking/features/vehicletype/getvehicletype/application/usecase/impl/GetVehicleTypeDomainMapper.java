@@ -1,4 +1,4 @@
-package co.edu.uco.ucoparking.features.vehicletype.getvehicletype.application.usecase.mapper;
+package co.edu.uco.ucoparking.features.vehicletype.getvehicletype.application.usecase.impl;
 
 import org.mapstruct.Mapper;
 

@@ -1,4 +1,4 @@
-package co.edu.uco.ucoparking.features.vehicletype.getvehicletype.application.inputport.mapper;
+package co.edu.uco.ucoparking.features.vehicletype.getvehicletype.application.inputport.impl;
 
 import java.util.List;
 

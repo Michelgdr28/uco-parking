@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import co.edu.uco.ucoparking.features.vehicletype.getvehicletype.application.usecase.GetVehicleTypeUseCase;
 import co.edu.uco.ucoparking.features.vehicletype.getvehicletype.application.usecase.domain.GetVehicleTypeDomain;
-import co.edu.uco.ucoparking.features.vehicletype.getvehicletype.application.usecase.mapper.GetVehicleTypeDomainMapper;
 import co.edu.uco.ucoparking.infrastructure.persistence.repository.VehicleTypeRepository;
 
 @Service
